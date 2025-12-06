@@ -13,74 +13,93 @@ services:
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "4250:5432"
+    networks:
+      bebroviy-net:
 
   gateway:
     build:
       context: ./services/gateway
+      dockerfile: dockerfile.yml
     container_name: gateway
     restart: always
     ports:
       - "8080:8080"
     environment:
       NODE_ENV: production
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: postgres
+      PORT: 8080
+      RESERVATION_URL: http://reservation:8070
+      PAYMENT_URL: http://payment:8060
+      LOYALTY_URL: http://loyalty:8050
     depends_on:
       - postgres
+    networks:
+      bebroviy-net:
 
   loyalty:
     build:
       context: ./services/loyalty
+      dockerfile: dockerfile.yml
     container_name: loyalty
     restart: always
     ports:
       - "8050:8050"
     environment:
       NODE_ENV: production
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: postgres
+      PORT: 8050
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_LOYALTY_NAME}
     depends_on:
       - postgres
+    networks:
+      bebroviy-net:
 
   payment:
     build:
       context: ./services/payment
+      dockerfile: dockerfile.yml
     container_name: payment
     restart: always
     ports:
       - "8060:8060"
     environment:
       NODE_ENV: production
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: postgres
+      PORT: 8060
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_PAYMENT_NAME}
     depends_on:
       - postgres
+    networks:
+      bebroviy-net:
 
   reservation:
     build:
       context: ./services/reservation
+      dockerfile: dockerfile.yml
     container_name: reservation
     restart: always
     ports:
       - "8070:8070"
     environment:
       NODE_ENV: production
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: postgres
+      PORT: 8070
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_RESERVATION_NAME}
     depends_on:
       - postgres
+    networks:
+      bebroviy-net:
 
 volumes:
   db-data:
+
+networks:
+  bebroviy-net:

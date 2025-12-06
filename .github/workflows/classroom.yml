@@ -20,11 +20,11 @@ jobs:
       # TODO build and run unit tests
 
       - name: Build images
-        timeout-minutes: 10
+        timeout-minutes: 3
         run: docker compose build
 
       - name: Run containers
-        timeout-minutes: 5
+        timeout-minutes: 2
         run: |
           docker compose up -d
           ./scripts/wait-script.sh
@@ -44,15 +44,15 @@ jobs:
         id: autograder
         continue-on-error: true
 
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 2
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
+      # - name: Github auto grader mark
+      #   uses: Romanow/google-sheet-autograder-marker@v1.0
+      #   with:
+      #     google_token: ${{secrets.GOOGLE_API_KEY}}
+      #     sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
+      #     homework_number: 2
+      #     user_column: 'D'
+      #     column_offset: 'F'
+      #     mark: "'+"
 
       - name: Stop containers
         if: always()

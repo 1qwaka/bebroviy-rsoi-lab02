@@ -1,4 +1,4 @@
-import { Controller, Get, Headers } from '@nestjs/common';
+import { Controller, Get, Headers, HttpCode } from '@nestjs/common';
 import { AppService } from './app.service';
 import { HttpService } from '@nestjs/axios';
 import { ReservationService } from 'src/reservation/reservation.service';
@@ -34,5 +34,12 @@ export class AppController {
             })),
             loyalty,
         }
+    }
+
+    
+    @Get('manage/health')
+    @HttpCode(200)
+    health() {
+        
     }
 }
