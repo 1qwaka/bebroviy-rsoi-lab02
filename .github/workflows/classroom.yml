@@ -25,9 +25,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd services/loyalty && npm ci
-          cd services/payment && npm ci
-          cd services/reservation && npm ci
+          cd services/loyalty && npm install
+          cd services/payment && npm install
+          cd services/reservation && npm install
 
       - name: Run Tests
         run: |
