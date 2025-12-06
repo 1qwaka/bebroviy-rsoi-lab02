@@ -23,6 +23,7 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    env_file: ['.env']
     environment:
       NODE_ENV: production
       PORT: 8080
@@ -42,6 +43,7 @@ services:
     restart: always
     ports:
       - "8050:8050"
+    env_file: ['.env']
     environment:
       NODE_ENV: production
       PORT: 8050
@@ -63,6 +65,7 @@ services:
     restart: always
     ports:
       - "8060:8060"
+    env_file: ['.env']
     environment:
       NODE_ENV: production
       PORT: 8060
@@ -84,6 +87,7 @@ services:
     restart: always
     ports:
       - "8070:8070"
+    env_file: ['.env']
     environment:
       NODE_ENV: production
       PORT: 8070
