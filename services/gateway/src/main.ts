@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -18,7 +18,11 @@ async function bootstrap() {
         defaultVersion: '1',
     })
 
-    app.setGlobalPrefix('api')
+    app.setGlobalPrefix('api', {
+        exclude: [
+            { path: 'manage/health', method: RequestMethod.GET },
+        ],
+    })
 
     await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }

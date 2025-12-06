@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, HttpCode } from '@nestjs/common';
+import { Controller, Get, Headers, HttpCode, Version } from '@nestjs/common';
 import { AppService } from './app.service';
 import { HttpService } from '@nestjs/axios';
 import { ReservationService } from 'src/reservation/reservation.service';
@@ -36,7 +36,7 @@ export class AppController {
         }
     }
 
-    
+    @Version('neutral')
     @Get('manage/health')
     @HttpCode(200)
     health() {
