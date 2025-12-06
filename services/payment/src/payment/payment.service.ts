@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Payment, PaymentStatus } from 'src/payment/entities/payment.entity';
+import { Payment, PaymentStatus } from './entities/payment.entity';
 import { In, Repository } from 'typeorm';
-import { FindPaymentsBatchDto } from 'src/payment/dto/find-payments-batch.dto';
+import { FindPaymentsBatchDto } from './dto/find-payments-batch.dto';
 
 @Injectable()
 export class PaymentsService {
@@ -29,7 +29,6 @@ export class PaymentsService {
     }
 
     findOne(paymentUid: string) {
-        // TODO мб стоит проверять на null и выбрасывать исключение 404 при ненаходе
         return this.repository.findOneBy({ paymentUid });
     }
 

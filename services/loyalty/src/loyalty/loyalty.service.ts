@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLoyaltyDto } from './dto/create-loyalty.dto';
 import { UpdateLoyaltyDto } from './dto/update-loyalty.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Loyalty, LoyaltyStatus, LoyaltyStatusDiscount } from 'src/loyalty/entities/loyalty.entity';
+import { Loyalty, LoyaltyStatus, LoyaltyStatusDiscount } from './entities/loyalty.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

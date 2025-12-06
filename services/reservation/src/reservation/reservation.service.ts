@@ -2,9 +2,9 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaymentStatus, Reservation } from 'src/reservation/entities/reservation.entity';
+import { PaymentStatus, Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
-import { Hotel } from 'src/hotel/entities/hotel.entity';
+import { Hotel } from '../hotel/entities/hotel.entity';
 
 @Injectable()
 export class ReservationService {

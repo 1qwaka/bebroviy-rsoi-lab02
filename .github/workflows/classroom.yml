@@ -17,6 +17,24 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' 
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          cd services/loyalty && npm ci
+          cd services/payment && npm ci
+          cd services/reservation && npm ci
+
+      - name: Run Tests
+        run: |
+          cd services/loyalty && npm run test
+          cd services/payment && npm run test
+          cd services/reservation && npm run test
+
       - name: Build images
         timeout-minutes: 3
         run: |

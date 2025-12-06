@@ -1,4 +1,4 @@
-import { Hotel } from 'src/hotel/entities/hotel.entity';
+import { Hotel } from '../../hotel/entities/hotel.entity';
 import { Column, Entity, Generated, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum PaymentStatus {
