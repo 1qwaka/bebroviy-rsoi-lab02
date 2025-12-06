@@ -25,14 +25,14 @@ jobs:
       - name: Install Dependencies
         run: |
           cd services/loyalty && npm install
-          cd services/payment && npm install
-          cd services/reservation && npm install
+          cd ../payment && npm install
+          cd ../reservation && npm install
 
       - name: Run Tests
         run: |
           cd services/loyalty && npm run test
-          cd services/payment && npm run test
-          cd services/reservation && npm run test
+          cd ../payment && npm run test
+          cd ../reservation && npm run test
 
       - name: Build images
         timeout-minutes: 3
