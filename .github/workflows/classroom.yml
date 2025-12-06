@@ -26,6 +26,7 @@ jobs:
       - name: Run containers
         timeout-minutes: 3
         run: |
+          echo ${{ secrets.ENV_FILE_CONTENT }} > .env
           docker compose up -d
           echo "------------------------- gateway logs -------------------------"
           docker compose logs gateway
