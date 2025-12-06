@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, HttpCode, Version } from '@nestjs/common';
+import { Controller, Get, Headers, HttpCode, Version, VERSION_NEUTRAL } from '@nestjs/common';
 import { AppService } from './app.service';
 import { HttpService } from '@nestjs/axios';
 import { ReservationService } from 'src/reservation/reservation.service';
@@ -14,6 +14,13 @@ export class AppController {
     ) { }
 
 
+    @Version(VERSION_NEUTRAL)
+    @Get('manage/health')
+    @HttpCode(200)
+    health() {
+
+    }
+    
     @Get('me')
     async getMe(@Headers('X-User-Name') username: string) {
         const reservations = await this.reservationService.findAll(username)
@@ -36,10 +43,4 @@ export class AppController {
         }
     }
 
-    @Version('neutral')
-    @Get('manage/health')
-    @HttpCode(200)
-    health() {
-        
-    }
 }
