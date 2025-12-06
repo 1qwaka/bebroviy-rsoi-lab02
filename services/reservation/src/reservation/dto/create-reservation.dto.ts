@@ -15,6 +15,9 @@ export class CreateReservationDto {
     @IsUUID(4)
     hotelUid: string;
 
+    @IsUUID(4)
+    paymentUid: string;
+
     @IsDateString()
     startDate: string;
 

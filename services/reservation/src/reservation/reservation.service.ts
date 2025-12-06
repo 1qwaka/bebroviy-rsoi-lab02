@@ -23,6 +23,7 @@ export class ReservationService {
         const reservation = this.reservationRepo.create({
             ...createReservationDto,
             hotel,
+            status: PaymentStatus.PAID
         })
         return this.reservationRepo.save(reservation);
     }

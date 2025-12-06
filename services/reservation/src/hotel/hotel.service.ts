@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHotelDto } from './dto/create-hotel.dto';
-import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Hotel } from 'src/hotel/entities/hotel.entity';
 import { Repository } from 'typeorm';
@@ -35,10 +34,14 @@ export class HotelService {
     }
     
     findAll(paginationDto: PaginationHotelDto) {
-        return this.repository.find({
-            skip: paginationDto.page * paginationDto.size,
+        return this.repository.findAndCount({
+            skip: (paginationDto.page - 1) * paginationDto.size,
             take: paginationDto.size,
         });
+    }
+    
+    findOne(hotelUid: string) {
+        return this.repository.findOneBy({ hotelUid });
     }
 
 }

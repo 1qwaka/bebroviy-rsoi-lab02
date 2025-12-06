@@ -5,16 +5,82 @@ services:
     container_name: postgres
     restart: on-failure
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
-      - "5432:5432"
+      - "4250:5432"
 
-# TODO добавить сервисы
+  gateway:
+    build:
+      context: ./services/gateway
+    container_name: gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+    depends_on:
+      - postgres
+
+  loyalty:
+    build:
+      context: ./services/loyalty
+    container_name: loyalty
+    restart: always
+    ports:
+      - "8050:8050"
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+    depends_on:
+      - postgres
+
+  payment:
+    build:
+      context: ./services/payment
+    container_name: payment
+    restart: always
+    ports:
+      - "8060:8060"
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+    depends_on:
+      - postgres
+
+  reservation:
+    build:
+      context: ./services/reservation
+    container_name: reservation
+    restart: always
+    ports:
+      - "8070:8070"
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+    depends_on:
+      - postgres
 
 volumes:
   db-data:

@@ -32,7 +32,7 @@ export class ReservationController {
         return this.reservationService.findOne(uid, username);
     }
 
-    @Patch(':id/cancel')
+    @Delete(':id/cancel')
     cancel(@Param('id') uid: string, @Query('username') username: string) {
         return this.reservationService.cancel(uid, username);
     }
